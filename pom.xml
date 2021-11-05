@@ -1,60 +1,148 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  
-  <groupId>org.scapy</groupId>
-  <artifactId>proxy-settings-maven-plugin</artifactId>  
-  <version>1.0.0</version>
-  <packaging>maven-plugin</packaging>
-  <name>proxy-settings-maven-plugin Maven Mojo</name>
-  <url>http://maven.apache.org</url>
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  
- 	<properties>
+	<groupId>io.github.scapy</groupId>
+	<artifactId>proxy-settings-maven-plugin</artifactId>
+	<version>1.0.0</version>
+	<packaging>maven-plugin</packaging>
+	<name>proxy-settings-maven-plugin Maven Mojo</name>
+	<url>https://github.com/scapy/proxy-settings-maven-plugin</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://github.com/scapy/proxy-settings-maven-plugin/blob/main/LICENSE</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>scapy</id>
+			<name>Giovanni Scapellato</name>
+			<email>giovanni.scapellato@gmail.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git@github.com:scapy/proxy-settings-maven-plugin.git</connection>
+		<developerConnection>scm:git:ssh://github.com:scapy/proxy-settings-maven-plugin.git</developerConnection>
+		<url>https://github.com/scapy/proxy-settings-maven-plugin</url>
+	</scm>
+
+
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-    	<maven.compiler.source>${java.version}</maven.compiler.source>
-    	<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
+
+	<build>
+		<plugins>
+			<plugin>			
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>				
+			</plugin>
+			
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-source-plugin</artifactId>
+			  <version>3.2.0</version>
+			  <executions>
+			    <execution>
+			      <id>attach-sources</id>
+			      <goals>
+			        <goal>jar</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			</plugin>
 	
-	  <build>
-		    <plugins>
-		        <plugin>
-		            <groupId>org.apache.maven.plugins</groupId>
-		            <artifactId>maven-compiler-plugin</artifactId>
-		            <version>3.3</version>
-		            <configuration>
-		                <source>${java.version}</source>
-		                <target>${java.version}</target>
-		            </configuration>
-		        </plugin>
-		    </plugins>
-		</build>
-		  
-  
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-plugin-api</artifactId>
-      <version>2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>    
-    <dependency>
-        <groupId>org.apache.maven.plugin-tools</groupId>
-        <artifactId>maven-plugin-annotations</artifactId>
-        <version>3.6.0</version>
-        <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-project</artifactId>
-        <version>2.2.1</version>
-    </dependency>
-  </dependencies>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>	
+            		
+		</plugins>
+	</build>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
+			<version>3.6.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+	</dependencies>
+	
+	<profiles>
+        <profile>
+            <id>ci-cd</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Prevent gpg from using pinentry programs. Fixes: gpg: signing 
+                                        failed: Inappropriate ioctl for device -->
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
 </project>
