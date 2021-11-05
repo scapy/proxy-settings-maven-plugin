@@ -1,2 +1,2 @@
 # proxy-settings-maven-plugin
-Set Basic Authentication for proxy in maven goal
+Set Basic Java Basic Authentication behind enterprise proxy using Basic Authentication in maven goal 
