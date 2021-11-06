@@ -7,7 +7,11 @@
 	<artifactId>proxy-settings-maven-plugin</artifactId>
 	<version>1.0.0</version>
 	<packaging>maven-plugin</packaging>
-	<name>proxy-settings-maven-plugin Maven Mojo</name>
+	<name>Proxy Authentication Settings</name>
+	<description>This plugin read the environment variable http.proxyUser and http.proxyPassword, and if are found it set
+	the PasswordAuthentication as default authentication for the JVM.
+	It is needed in case there is a proxy using basic authentication
+	</description>
 	<url>https://github.com/scapy/proxy-settings-maven-plugin</url>
 
 	<licenses>
